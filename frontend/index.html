@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sistema de Inventario y Ventas</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f2f5;
+            color: #1e293b;
+        }
+
+        nav {
+            background: #1a3a5c;
+            padding: 16px 32px;
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        nav h1 {
+            color: white;
+            font-size: 18px;
+            margin-right: auto;
+        }
+
+        nav button {
+            background: #2563a8;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        nav button:hover,
+        nav button.active {
+            background: #38c9a0;
+            color: #1a3a5c;
+            font-weight: bold;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 32px auto;
+            padding: 0 16px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 10px;
+            padding: 24px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            margin-bottom: 24px;
+        }
+
+        .card h2 {
+            font-size: 16px;
+            color: #1a3a5c;
+            margin-bottom: 16px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #dbeafe;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 12px;
+        }
+
+        .form-row input,
+        .form-row select {
+            flex: 1;
+            min-width: 150px;
+            padding: 8px 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        .btn {
+            padding: 8px 18px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .btn-primary {
+            background: #2563a8;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #1a3a5c;
+        }
+
+        .btn-danger {
+            background: #e11d48;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #be123c;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        th {
+            background: #1a3a5c;
+            color: white;
+            padding: 10px 12px;
+            text-align: left;
+        }
+
+        td {
+            padding: 9px 12px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        tr:hover td {
+            background: #f8fafc;
+        }
+
+        .badge {
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .badge-ok {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .badge-low {
+            background: #fee2e2;
+            color: #7c2d12;
+        }
+
+        .badge-completada {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .msg {
+            padding: 10px 16px;
+            border-radius: 6px;
+            margin-bottom: 12px;
+            font-size: 14px;
+        }
+
+        .msg-ok {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .msg-err {
+            background: #fee2e2;
+            color: #7c2d12;
+        }
+
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        .reporte-btns {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <h1>📦 Inventario y Ventas</h1>
+        <button onclick="showSection('categorias')" id="btn-categorias">Categorías</button>
+        <button onclick="showSection('productos')" id="btn-productos">Productos</button>
+        <button onclick="showSection('clientes')" id="btn-clientes">Clientes</button>
+        <button onclick="showSection('ventas')" id="btn-ventas">Ventas</button>
+        <button onclick="showSection('reportes')" id="btn-reportes">Reportes</button>
+    </nav>
+
+    <div class="container">
+        <div id="msg"></div>
+
+        <!-- ══════════════════ CATEGORIAS ══════════════════ -->
+        <div id="sec-categorias" class="section">
+            <div class="card">
+                <h2>Nueva Categoría</h2>
+                <div class="form-row">
+                    <input id="cat-nombre" placeholder="Nombre *" />
+                    <input id="cat-desc" placeholder="Descripción" />
+                    <button class="btn btn-primary" onclick="saveCategoria()">Guardar</button>
+                </div>
+            </div>
+            <div class="card">
+                <h2>Categorías registradas</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Descripción</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabla-categorias"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- ══════════════════ PRODUCTOS ══════════════════ -->
+        <div id="sec-productos" class="section">
+            <div class="card">
+                <h2>Nuevo Producto</h2>
+                <div class="form-row">
+                    <input id="prod-nombre" placeholder="Nombre *" />
+                    <input id="prod-precio" type="number" placeholder="Precio *" />
+                    <input id="prod-stock" type="number" placeholder="Stock actual" />
+                    <input id="prod-stock-min" type="number" placeholder="Stock mínimo" />
+                </div>
+                <div class="form-row">
+                    <select id="prod-categoria">
+                        <option value="">Selecciona categoría</option>
+                    </select>
+                    <select id="prod-proveedor">
+                        <option value="">Selecciona proveedor</option>
+                    </select>
+                    <button class="btn btn-primary" onclick="saveProducto()">Guardar</button>
+                </div>
+            </div>
+            <div class="card">
+                <h2>Productos en inventario</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Precio</th>
+                            <th>Stock</th>
+                            <th>Categoría</th>
+                            <th>Proveedor</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabla-productos"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- ══════════════════ CLIENTES ══════════════════ -->
+        <div id="sec-clientes" class="section">
+            <div class="card">
+                <h2>Nuevo Cliente</h2>
+                <div class="form-row">
+                    <input id="cli-nombre" placeholder="Nombre *" />
+                    <input id="cli-apellido" placeholder="Apellido *" />
+                    <input id="cli-email" placeholder="Email" />
+                    <input id="cli-telefono" placeholder="Teléfono" />
+                    <button class="btn btn-primary" onclick="saveCliente()">Guardar</button>
+                </div>
+            </div>
+            <div class="card">
+                <h2>Clientes registrados</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Email</th>
+                            <th>Teléfono</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabla-clientes"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- ══════════════════ VENTAS ══════════════════ -->
+        <div id="sec-ventas" class="section">
+            <div class="card">
+                <h2>Registrar Venta</h2>
+                <div class="form-row">
+                    <select id="venta-cliente">
+                        <option value="">Selecciona cliente</option>
+                    </select>
+                    <select id="venta-empleado">
+                        <option value="">Selecciona empleado</option>
+                    </select>
+                </div>
+                <div id="detalles-venta"></div>
+                <button class="btn btn-primary" onclick="agregarDetalle()" style="margin:8px 0">+ Agregar
+                    producto</button>
+                <br />
+                <button class="btn btn-primary" onclick="saveVenta()">Registrar Venta</button>
+            </div>
+            <div class="card">
+                <h2>Ventas registradas</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Fecha</th>
+                            <th>Cliente</th>
+                            <th>Empleado</th>
+                            <th>Total</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabla-ventas"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- ══════════════════ REPORTES ══════════════════ -->
+        <div id="sec-reportes" class="section">
+            <div class="card">
+                <h2>Reportes disponibles</h2>
+                <div class="reporte-btns">
+                    <button class="btn btn-primary" onclick="loadReporte('productos-detalle')">
+                        🔗 Productos por Categoría y Proveedor
+                    </button>
+                    <button class="btn btn-primary" onclick="loadReporte('ventas-por-cliente')">
+                        📊 Ventas por Cliente (GROUP BY + HAVING)
+                    </button>
+                    <button class="btn btn-primary" onclick="loadReporte('stock-bajo')">
+                        ⚠️ Stock Bajo Mínimo (CTE)
+                    </button>
+                    <button class="btn btn-primary" onclick="loadReporte('clientes-electronica')">
+                        🔍 Clientes que compraron Electrónica (Subquery IN)
+                    </button>
+                    <button class="btn btn-primary" onclick="loadReporte('productos-sin-ventas')">
+                        🔍 Productos sin Ventas (Subquery EXISTS)
+                    </button>
+                    <button class="btn btn-primary" onclick="loadReporte('resumen-ventas')">
+                        👁️ Resumen de Ventas (VIEW)
+                    </button>
+                </div>
+            </div>
+            <div class="card" id="reporte-resultado" style="display:none">
+                <h2 id="reporte-titulo"></h2>
+                <div id="reporte-tabla"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        const API = "http://localhost:8000";
+        let empleados = [];
+        let productos = [];
+
+        function showMsg(text, ok = true) {
+            const el = document.getElementById("msg");
+            el.innerHTML = `<div class="msg ${ok ? 'msg-ok' : 'msg-err'}">${text}</div>`;
+            setTimeout(() => el.innerHTML = "", 3000);
+        }
+
+        function showSection(name) {
+            document.querySelectorAll(".section").forEach(s => s.classList.remove("active"));
+            document.querySelectorAll("nav button").forEach(b => b.classList.remove("active"));
+            document.getElementById("sec-" + name).classList.add("active");
+            document.getElementById("btn-" + name).classList.add("active");
+            if (name === "categorias") loadCategorias();
+            if (name === "productos") { loadCategorias(); loadProveedores(); loadProductos(); }
+            if (name === "clientes") loadClientes();
+            if (name === "ventas") { loadClientes(); loadEmpleados(); loadProductos(); loadVentas(); }
+        }
+
+        // ── CATEGORIAS ────────────────────────────────────────────
+        async function loadCategorias() {
+            const res = await fetch(`${API}/categorias`);
+            const data = await res.json();
+            const tb = document.getElementById("tabla-categorias");
+            tb.innerHTML = data.map(r => `
+    <tr>
+      <td>${r.categoria_id}</td>
+      <td>${r.nombre}</td>
+      <td>${r.descripcion || '-'}</td>
+      <td><button class="btn btn-danger" onclick="deleteCategoria(${r.categoria_id})">Eliminar</button></td>
+    </tr>`).join("");
+            const sel = document.getElementById("prod-categoria");
+            if (sel) sel.innerHTML = `<option value="">Selecciona categoría</option>` +
+                data.map(r => `<option value="${r.categoria_id}">${r.nombre}</option>`).join("");
+        }
+
+        async function saveCategoria() {
+            const nombre = document.getElementById("cat-nombre").value.trim();
+            const descripcion = document.getElementById("cat-desc").value.trim();
+            if (!nombre) return showMsg("El nombre es obligatorio", false);
+            const res = await fetch(`${API}/categorias`, {
+                method: "POST", headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ nombre, descripcion })
+            });
+            const data = await res.json();
+            if (res.ok) {
+                showMsg("Categoría guardada"); loadCategorias();
+                document.getElementById("cat-nombre").value = "";
+                document.getElementById("cat-desc").value = "";
+            } else showMsg(data.detail, false);
+        }
+
+        async function deleteCategoria(id) {
+            if (!confirm("¿Eliminar esta categoría?")) return;
+            const res = await fetch(`${API}/categorias/${id}`, { method: "DELETE" });
+            const data = await res.json();
+            if (res.ok) { showMsg("Categoría eliminada"); loadCategorias(); }
+            else showMsg(data.detail, false);
+        }
+
+        // ── PROVEEDORES ───────────────────────────────────────────
+        async function loadProveedores() {
+            const res = await fetch(`${API}/proveedores`);
+            const data = await res.json();
+            const sel = document.getElementById("prod-proveedor");
+            if (sel) sel.innerHTML = `<option value="">Selecciona proveedor</option>` +
+                data.map(r => `<option value="${r.proveedor_id}">${r.nombre}</option>`).join("");
+        }
+
+        // ── PRODUCTOS ─────────────────────────────────────────────
+        async function loadProductos() {
+            const res = await fetch(`${API}/productos`);
+            productos = await res.json();
+            const tb = document.getElementById("tabla-productos");
+            if (!tb) return;
+            tb.innerHTML = productos.map(r => `
+    <tr>
+      <td>${r.nombre}</td>
+      <td>Q${parseFloat(r.precio_unitario).toFixed(2)}</td>
+      <td>${r.stock_actual}</td>
+      <td>${r.categoria}</td>
+      <td>${r.proveedor}</td>
+      <td><span class="badge ${r.stock_actual <= r.stock_minimo ? 'badge-low' : 'badge-ok'}">
+        ${r.stock_actual <= r.stock_minimo ? 'Stock bajo' : 'OK'}
+      </span></td>
+      <td><button class="btn btn-danger" onclick="deleteProducto(${r.producto_id})">Eliminar</button></td>
+    </tr>`).join("");
+        }
+
+        async function saveProducto() {
+            const nombre = document.getElementById("prod-nombre").value.trim();
+            const precio_unitario = parseFloat(document.getElementById("prod-precio").value);
+            const stock_actual = parseInt(document.getElementById("prod-stock").value) || 0;
+            const stock_minimo = parseInt(document.getElementById("prod-stock-min").value) || 0;
+            const categoria_id = parseInt(document.getElementById("prod-categoria").value);
+            const proveedor_id = parseInt(document.getElementById("prod-proveedor").value);
+            if (!nombre || !precio_unitario || !categoria_id || !proveedor_id)
+                return showMsg("Completa todos los campos obligatorios", false);
+            const res = await fetch(`${API}/productos`, {
+                method: "POST", headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ nombre, precio_unitario, stock_actual, stock_minimo, categoria_id, proveedor_id })
+            });
+            const data = await res.json();
+            if (res.ok) { showMsg("Producto guardado"); loadProductos(); }
+            else showMsg(data.detail, false);
+        }
+
+        async function deleteProducto(id) {
+            if (!confirm("¿Eliminar este producto?")) return;
+            const res = await fetch(`${API}/productos/${id}`, { method: "DELETE" });
+            const data = await res.json();
+            if (res.ok) { showMsg("Producto eliminado"); loadProductos(); }
+            else showMsg(data.detail, false);
+        }
+
+        // ── CLIENTES ──────────────────────────────────────────────
+        async function loadClientes() {
+            const res = await fetch(`${API}/clientes`);
+            const data = await res.json();
+            const tb = document.getElementById("tabla-clientes");
+            if (tb) tb.innerHTML = data.map(r => `
+    <tr>
+      <td>${r.cliente_id}</td>
+      <td>${r.nombre} ${r.apellido}</td>
+      <td>${r.email || '-'}</td>
+      <td>${r.telefono || '-'}</td>
+      <td><button class="btn btn-danger" onclick="deleteCliente(${r.cliente_id})">Eliminar</button></td>
+    </tr>`).join("");
+            const sel = document.getElementById("venta-cliente");
+            if (sel) sel.innerHTML = `<option value="">Selecciona cliente</option>` +
+                data.map(r => `<option value="${r.cliente_id}">${r.nombre} ${r.apellido}</option>`).join("");
+        }
+
+        async function saveCliente() {
+            const nombre = document.getElementById("cli-nombre").value.trim();
+            const apellido = document.getElementById("cli-apellido").value.trim();
+            const email = document.getElementById("cli-email").value.trim();
+            const telefono = document.getElementById("cli-telefono").value.trim();
+            if (!nombre || !apellido) return showMsg("Nombre y apellido son obligatorios", false);
+            const res = await fetch(`${API}/clientes`, {
+                method: "POST", headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ nombre, apellido, email, telefono })
+            });
+            const data = await res.json();
+            if (res.ok) {
+                showMsg("Cliente guardado"); loadClientes();
+                document.getElementById("cli-nombre").value = "";
+                document.getElementById("cli-apellido").value = "";
+                document.getElementById("cli-email").value = "";
+                document.getElementById("cli-telefono").value = "";
+            } else showMsg(data.detail, false);
+        }
+
+        async function deleteCliente(id) {
+            if (!confirm("¿Eliminar este cliente?")) return;
+            const res = await fetch(`${API}/clientes/${id}`, { method: "DELETE" });
+            const data = await res.json();
+            if (res.ok) { showMsg("Cliente eliminado"); loadClientes(); }
+            else showMsg(data.detail, false);
+        }
+
+        // ── EMPLEADOS ─────────────────────────────────────────────
+        async function loadEmpleados() {
+            const res = await fetch(`${API}/empleados`);
+            empleados = await res.json();
+            const sel = document.getElementById("venta-empleado");
+            if (sel) sel.innerHTML = `<option value="">Selecciona empleado</option>` +
+                empleados.map(r => `<option value="${r.empleado_id}">${r.nombre} ${r.apellido}</option>`).join("");
+        }
+
+        // ── VENTAS ────────────────────────────────────────────────
+        function agregarDetalle() {
+            const cont = document.getElementById("detalles-venta");
+            const div = document.createElement("div");
+            div.className = "form-row";
+            div.innerHTML = `
+    <select class="detalle-producto">
+      <option value="">Producto</option>
+      ${productos.map(p => `<option value="${p.producto_id}" data-precio="${p.precio_unitario}">${p.nombre} (Q${parseFloat(p.precio_unitario).toFixed(2)})</option>`).join("")}
+    </select>
+    <input type="number" class="detalle-cantidad" placeholder="Cantidad" min="1" value="1" style="max-width:100px"/>
+    <button class="btn btn-danger" onclick="this.parentElement.remove()">✕</button>`;
+            cont.appendChild(div);
+        }
+
+        async function loadVentas() {
+            const res = await fetch(`${API}/ventas`);
+            const data = await res.json();
+            const tb = document.getElementById("tabla-ventas");
+            if (tb) tb.innerHTML = data.map(r => `
+    <tr>
+      <td>${r.venta_id}</td>
+      <td>${r.fecha_venta.substring(0, 10)}</td>
+      <td>${r.cliente}</td>
+      <td>${r.empleado}</td>
+      <td>Q${parseFloat(r.total).toFixed(2)}</td>
+      <td><span class="badge badge-${r.estado}">${r.estado}</span></td>
+    </tr>`).join("");
+        }
+
+        async function saveVenta() {
+            const cliente_id = parseInt(document.getElementById("venta-cliente").value);
+            const empleado_id = parseInt(document.getElementById("venta-empleado").value);
+            if (!cliente_id || !empleado_id) return showMsg("Selecciona cliente y empleado", false);
+            const filas = document.querySelectorAll("#detalles-venta .form-row");
+            if (filas.length === 0) return showMsg("Agrega al menos un producto", false);
+            const detalles = [];
+            for (const fila of filas) {
+                const sel = fila.querySelector(".detalle-producto");
+                const cant = fila.querySelector(".detalle-cantidad");
+                const producto_id = parseInt(sel.value);
+                const cantidad = parseInt(cant.value);
+                const precio_unitario = parseFloat(sel.options[sel.selectedIndex].dataset.precio);
+                if (!producto_id || !cantidad) return showMsg("Completa todos los productos", false);
+                detalles.push({ producto_id, cantidad, precio_unitario });
+            }
+            const res = await fetch(`${API}/ventas`, {
+                method: "POST", headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ cliente_id, empleado_id, detalles })
+            });
+            const data = await res.json();
+            if (res.ok) {
+                showMsg(`Venta registrada. Total: Q${data.total.toFixed(2)}`);
+                document.getElementById("detalles-venta").innerHTML = "";
+                loadVentas();
+            } else showMsg(data.detail, false);
+        }
+
+        // ── REPORTES ──────────────────────────────────────────────
+        async function loadReporte(tipo) {
+            const titulos = {
+                "productos-detalle": "🔗 Productos por Categoría y Proveedor (JOIN múltiples tablas)",
+                "ventas-por-cliente": "📊 Ventas por Cliente con total > Q1,000 (GROUP BY + HAVING)",
+                "stock-bajo": "⚠️ Productos con Stock Bajo el Mínimo (CTE WITH)",
+                "clientes-electronica": "🔍 Clientes que compraron Electrónica (Subquery IN)",
+                "productos-sin-ventas": "🔍 Productos que Nunca han sido Vendidos (Subquery NOT EXISTS)",
+                "resumen-ventas": "👁️ Resumen Completo de Ventas (VIEW vista_resumen_ventas)"
+            };
+            const res = await fetch(`${API}/reportes/${tipo}`);
+            const data = await res.json();
+            document.getElementById("reporte-resultado").style.display = "block";
+            document.getElementById("reporte-titulo").textContent = titulos[tipo];
+            if (data.length === 0) {
+                document.getElementById("reporte-tabla").innerHTML = "<p style='color:#64748b;padding:12px'>No hay datos para mostrar.</p>";
+                return;
+            }
+            const keys = Object.keys(data[0]);
+            document.getElementById("reporte-tabla").innerHTML = `
+    <table>
+      <thead><tr>${keys.map(k => `<th>${k}</th>`).join("")}</tr></thead>
+      <tbody>${data.map(r => `<tr>${keys.map(k => `<td>${r[k]}</td>`).join("")}</tr>`).join("")}</tbody>
+    </table>`;
+        }
+
+        showSection("categorias");
+    </script>
+</body>
+
+</html>
