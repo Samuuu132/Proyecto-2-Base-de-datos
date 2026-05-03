@@ -195,8 +195,8 @@
 <body>
 
     <nav>
-        <h1>📦 Inventario y Ventas</h1>
-        <button onclick="showSection('categorias')" id="btn-categorias">Categorías</button>
+        <h1>Inventario y Ventas</h1>
+        <button onclick="showSection('categorias')" id="btn-categorias">Categorias</button>
         <button onclick="showSection('productos')" id="btn-productos">Productos</button>
         <button onclick="showSection('clientes')" id="btn-clientes">Clientes</button>
         <button onclick="showSection('ventas')" id="btn-ventas">Ventas</button>
@@ -206,24 +206,23 @@
     <div class="container">
         <div id="msg"></div>
 
-        <!-- ══════════════════ CATEGORIAS ══════════════════ -->
         <div id="sec-categorias" class="section">
             <div class="card">
-                <h2>Nueva Categoría</h2>
+                <h2>Gestion de Categoria</h2>
                 <div class="form-row">
                     <input id="cat-nombre" placeholder="Nombre *" />
-                    <input id="cat-desc" placeholder="Descripción" />
+                    <input id="cat-desc" placeholder="Descripcion" />
                     <button class="btn btn-primary" onclick="saveCategoria()">Guardar</button>
                 </div>
             </div>
             <div class="card">
-                <h2>Categorías registradas</h2>
+                <h2>Categorias registradas</h2>
                 <table>
                     <thead>
                         <tr>
                             <th>ID</th>
                             <th>Nombre</th>
-                            <th>Descripción</th>
+                            <th>Descripcion</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
@@ -232,7 +231,6 @@
             </div>
         </div>
 
-        <!-- ══════════════════ PRODUCTOS ══════════════════ -->
         <div id="sec-productos" class="section">
             <div class="card">
                 <h2>Nuevo Producto</h2>
@@ -240,11 +238,11 @@
                     <input id="prod-nombre" placeholder="Nombre *" />
                     <input id="prod-precio" type="number" placeholder="Precio *" />
                     <input id="prod-stock" type="number" placeholder="Stock actual" />
-                    <input id="prod-stock-min" type="number" placeholder="Stock mínimo" />
+                    <input id="prod-stock-min" type="number" placeholder="Stock minimo" />
                 </div>
                 <div class="form-row">
                     <select id="prod-categoria">
-                        <option value="">Selecciona categoría</option>
+                        <option value="">Selecciona categoria</option>
                     </select>
                     <select id="prod-proveedor">
                         <option value="">Selecciona proveedor</option>
@@ -260,7 +258,7 @@
                             <th>Nombre</th>
                             <th>Precio</th>
                             <th>Stock</th>
-                            <th>Categoría</th>
+                            <th>Categoria</th>
                             <th>Proveedor</th>
                             <th>Estado</th>
                             <th>Acciones</th>
@@ -271,15 +269,14 @@
             </div>
         </div>
 
-        <!-- ══════════════════ CLIENTES ══════════════════ -->
         <div id="sec-clientes" class="section">
             <div class="card">
-                <h2>Nuevo Cliente</h2>
+                <h2>Gestion de Cliente</h2>
                 <div class="form-row">
                     <input id="cli-nombre" placeholder="Nombre *" />
                     <input id="cli-apellido" placeholder="Apellido *" />
                     <input id="cli-email" placeholder="Email" />
-                    <input id="cli-telefono" placeholder="Teléfono" />
+                    <input id="cli-telefono" placeholder="Telefono" />
                     <button class="btn btn-primary" onclick="saveCliente()">Guardar</button>
                 </div>
             </div>
@@ -291,7 +288,7 @@
                             <th>ID</th>
                             <th>Nombre</th>
                             <th>Email</th>
-                            <th>Teléfono</th>
+                            <th>Telefono</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
@@ -300,7 +297,6 @@
             </div>
         </div>
 
-        <!-- ══════════════════ VENTAS ══════════════════ -->
         <div id="sec-ventas" class="section">
             <div class="card">
                 <h2>Registrar Venta</h2>
@@ -336,29 +332,20 @@
             </div>
         </div>
 
-        <!-- ══════════════════ REPORTES ══════════════════ -->
         <div id="sec-reportes" class="section">
             <div class="card">
                 <h2>Reportes disponibles</h2>
                 <div class="reporte-btns">
-                    <button class="btn btn-primary" onclick="loadReporte('productos-detalle')">
-                        🔗 Productos por Categoría y Proveedor
-                    </button>
-                    <button class="btn btn-primary" onclick="loadReporte('ventas-por-cliente')">
-                        📊 Ventas por Cliente (GROUP BY + HAVING)
-                    </button>
-                    <button class="btn btn-primary" onclick="loadReporte('stock-bajo')">
-                        ⚠️ Stock Bajo Mínimo (CTE)
-                    </button>
-                    <button class="btn btn-primary" onclick="loadReporte('clientes-electronica')">
-                        🔍 Clientes que compraron Electrónica (Subquery IN)
-                    </button>
-                    <button class="btn btn-primary" onclick="loadReporte('productos-sin-ventas')">
-                        🔍 Productos sin Ventas (Subquery EXISTS)
-                    </button>
-                    <button class="btn btn-primary" onclick="loadReporte('resumen-ventas')">
-                        👁️ Resumen de Ventas (VIEW)
-                    </button>
+                    <button class="btn btn-primary" onclick="loadReporte('productos-detalle')">Productos por
+                        Categoria</button>
+                    <button class="btn btn-primary" onclick="loadReporte('ventas-por-cliente')">Ventas por
+                        Cliente</button>
+                    <button class="btn btn-primary" onclick="loadReporte('stock-bajo')">Stock Bajo Minimo</button>
+                    <button class="btn btn-primary" onclick="loadReporte('clientes-electronica')">Clientes
+                        Electronica</button>
+                    <button class="btn btn-primary" onclick="loadReporte('productos-sin-ventas')">Productos sin
+                        Ventas</button>
+                    <button class="btn btn-primary" onclick="loadReporte('resumen-ventas')">Resumen de Ventas</button>
                 </div>
             </div>
             <div class="card" id="reporte-resultado" style="display:none">
@@ -373,6 +360,8 @@
         const API = "http://localhost:8000";
         let empleados = [];
         let productos = [];
+        let categoriaEditando = null;
+        let clienteEditando = null;
 
         function showMsg(text, ok = true) {
             const el = document.getElementById("msg");
@@ -391,7 +380,6 @@
             if (name === "ventas") { loadClientes(); loadEmpleados(); loadProductos(); loadVentas(); }
         }
 
-        // ── CATEGORIAS ────────────────────────────────────────────
         async function loadCategorias() {
             const res = await fetch(`${API}/categorias`);
             const data = await res.json();
@@ -401,38 +389,57 @@
       <td>${r.categoria_id}</td>
       <td>${r.nombre}</td>
       <td>${r.descripcion || '-'}</td>
-      <td><button class="btn btn-danger" onclick="deleteCategoria(${r.categoria_id})">Eliminar</button></td>
+      <td>
+        <button class="btn btn-primary" onclick="prepararEdicionCategoria(${r.categoria_id}, '${r.nombre}', '${r.descripcion || ''}')">Editar</button>
+        <button class="btn btn-danger" onclick="deleteCategoria(${r.categoria_id})">Eliminar</button>
+      </td>
     </tr>`).join("");
             const sel = document.getElementById("prod-categoria");
-            if (sel) sel.innerHTML = `<option value="">Selecciona categoría</option>` +
+            if (sel) sel.innerHTML = `<option value="">Selecciona categoria</option>` +
                 data.map(r => `<option value="${r.categoria_id}">${r.nombre}</option>`).join("");
+        }
+
+        function prepararEdicionCategoria(id, nombre, desc) {
+            document.getElementById("cat-nombre").value = nombre;
+            document.getElementById("cat-desc").value = desc !== '-' ? desc : '';
+            categoriaEditando = id;
+            showMsg("Modifica los datos y presiona Guardar", true);
         }
 
         async function saveCategoria() {
             const nombre = document.getElementById("cat-nombre").value.trim();
             const descripcion = document.getElementById("cat-desc").value.trim();
             if (!nombre) return showMsg("El nombre es obligatorio", false);
-            const res = await fetch(`${API}/categorias`, {
-                method: "POST", headers: { "Content-Type": "application/json" },
+
+            let url = `${API}/categorias`;
+            let method = "POST";
+            if (categoriaEditando) {
+                url = `${API}/categorias/${categoriaEditando}`;
+                method = "PUT";
+            }
+
+            const res = await fetch(url, {
+                method: method, headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ nombre, descripcion })
             });
             const data = await res.json();
             if (res.ok) {
-                showMsg("Categoría guardada"); loadCategorias();
+                showMsg(categoriaEditando ? "Categoria actualizada" : "Categoria guardada");
+                loadCategorias();
                 document.getElementById("cat-nombre").value = "";
                 document.getElementById("cat-desc").value = "";
+                categoriaEditando = null;
             } else showMsg(data.detail, false);
         }
 
         async function deleteCategoria(id) {
-            if (!confirm("¿Eliminar esta categoría?")) return;
+            if (!confirm("Eliminar esta categoria?")) return;
             const res = await fetch(`${API}/categorias/${id}`, { method: "DELETE" });
             const data = await res.json();
-            if (res.ok) { showMsg("Categoría eliminada"); loadCategorias(); }
+            if (res.ok) { showMsg("Categoria eliminada"); loadCategorias(); }
             else showMsg(data.detail, false);
         }
 
-        // ── PROVEEDORES ───────────────────────────────────────────
         async function loadProveedores() {
             const res = await fetch(`${API}/proveedores`);
             const data = await res.json();
@@ -441,7 +448,6 @@
                 data.map(r => `<option value="${r.proveedor_id}">${r.nombre}</option>`).join("");
         }
 
-        // ── PRODUCTOS ─────────────────────────────────────────────
         async function loadProductos() {
             const res = await fetch(`${API}/productos`);
             productos = await res.json();
@@ -480,14 +486,13 @@
         }
 
         async function deleteProducto(id) {
-            if (!confirm("¿Eliminar este producto?")) return;
+            if (!confirm("Eliminar este producto?")) return;
             const res = await fetch(`${API}/productos/${id}`, { method: "DELETE" });
             const data = await res.json();
             if (res.ok) { showMsg("Producto eliminado"); loadProductos(); }
             else showMsg(data.detail, false);
         }
 
-        // ── CLIENTES ──────────────────────────────────────────────
         async function loadClientes() {
             const res = await fetch(`${API}/clientes`);
             const data = await res.json();
@@ -498,11 +503,23 @@
       <td>${r.nombre} ${r.apellido}</td>
       <td>${r.email || '-'}</td>
       <td>${r.telefono || '-'}</td>
-      <td><button class="btn btn-danger" onclick="deleteCliente(${r.cliente_id})">Eliminar</button></td>
+      <td>
+        <button class="btn btn-primary" onclick="prepararEdicionCliente(${r.cliente_id}, '${r.nombre}', '${r.apellido}', '${r.email || ''}', '${r.telefono || ''}')">Editar</button>
+        <button class="btn btn-danger" onclick="deleteCliente(${r.cliente_id})">Eliminar</button>
+      </td>
     </tr>`).join("");
             const sel = document.getElementById("venta-cliente");
             if (sel) sel.innerHTML = `<option value="">Selecciona cliente</option>` +
                 data.map(r => `<option value="${r.cliente_id}">${r.nombre} ${r.apellido}</option>`).join("");
+        }
+
+        function prepararEdicionCliente(id, nombre, apellido, email, telefono) {
+            document.getElementById("cli-nombre").value = nombre;
+            document.getElementById("cli-apellido").value = apellido;
+            document.getElementById("cli-email").value = email !== '-' ? email : '';
+            document.getElementById("cli-telefono").value = telefono !== '-' ? telefono : '';
+            clienteEditando = id;
+            showMsg("Modifica los datos y presiona Guardar", true);
         }
 
         async function saveCliente() {
@@ -511,29 +528,38 @@
             const email = document.getElementById("cli-email").value.trim();
             const telefono = document.getElementById("cli-telefono").value.trim();
             if (!nombre || !apellido) return showMsg("Nombre y apellido son obligatorios", false);
-            const res = await fetch(`${API}/clientes`, {
-                method: "POST", headers: { "Content-Type": "application/json" },
+
+            let url = `${API}/clientes`;
+            let method = "POST";
+            if (clienteEditando) {
+                url = `${API}/clientes/${clienteEditando}`;
+                method = "PUT";
+            }
+
+            const res = await fetch(url, {
+                method: method, headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ nombre, apellido, email, telefono })
             });
             const data = await res.json();
             if (res.ok) {
-                showMsg("Cliente guardado"); loadClientes();
+                showMsg(clienteEditando ? "Cliente actualizado" : "Cliente guardado");
+                loadClientes();
                 document.getElementById("cli-nombre").value = "";
                 document.getElementById("cli-apellido").value = "";
                 document.getElementById("cli-email").value = "";
                 document.getElementById("cli-telefono").value = "";
+                clienteEditando = null;
             } else showMsg(data.detail, false);
         }
 
         async function deleteCliente(id) {
-            if (!confirm("¿Eliminar este cliente?")) return;
+            if (!confirm("Eliminar este cliente?")) return;
             const res = await fetch(`${API}/clientes/${id}`, { method: "DELETE" });
             const data = await res.json();
             if (res.ok) { showMsg("Cliente eliminado"); loadClientes(); }
             else showMsg(data.detail, false);
         }
 
-        // ── EMPLEADOS ─────────────────────────────────────────────
         async function loadEmpleados() {
             const res = await fetch(`${API}/empleados`);
             empleados = await res.json();
@@ -542,7 +568,6 @@
                 empleados.map(r => `<option value="${r.empleado_id}">${r.nombre} ${r.apellido}</option>`).join("");
         }
 
-        // ── VENTAS ────────────────────────────────────────────────
         function agregarDetalle() {
             const cont = document.getElementById("detalles-venta");
             const div = document.createElement("div");
@@ -553,7 +578,7 @@
       ${productos.map(p => `<option value="${p.producto_id}" data-precio="${p.precio_unitario}">${p.nombre} (Q${parseFloat(p.precio_unitario).toFixed(2)})</option>`).join("")}
     </select>
     <input type="number" class="detalle-cantidad" placeholder="Cantidad" min="1" value="1" style="max-width:100px"/>
-    <button class="btn btn-danger" onclick="this.parentElement.remove()">✕</button>`;
+    <button class="btn btn-danger" onclick="this.parentElement.remove()">X</button>`;
             cont.appendChild(div);
         }
 
@@ -600,15 +625,14 @@
             } else showMsg(data.detail, false);
         }
 
-        // ── REPORTES ──────────────────────────────────────────────
         async function loadReporte(tipo) {
             const titulos = {
-                "productos-detalle": "🔗 Productos por Categoría y Proveedor (JOIN múltiples tablas)",
-                "ventas-por-cliente": "📊 Ventas por Cliente con total > Q1,000 (GROUP BY + HAVING)",
-                "stock-bajo": "⚠️ Productos con Stock Bajo el Mínimo (CTE WITH)",
-                "clientes-electronica": "🔍 Clientes que compraron Electrónica (Subquery IN)",
-                "productos-sin-ventas": "🔍 Productos que Nunca han sido Vendidos (Subquery NOT EXISTS)",
-                "resumen-ventas": "👁️ Resumen Completo de Ventas (VIEW vista_resumen_ventas)"
+                "productos-detalle": "Productos por Categoria y Proveedor",
+                "ventas-por-cliente": "Ventas por Cliente con total > Q1,000",
+                "stock-bajo": "Productos con Stock Bajo el Minimo",
+                "clientes-electronica": "Clientes que compraron Electronica",
+                "productos-sin-ventas": "Productos que Nunca han sido Vendidos",
+                "resumen-ventas": "Resumen Completo de Ventas"
             };
             const res = await fetch(`${API}/reportes/${tipo}`);
             const data = await res.json();
