@@ -147,3 +147,72 @@ GROUP BY v.venta_id, v.fecha_venta, v.total, v.estado,
          e.nombre, e.apellido, e.cargo;
 
 CREATE INDEX idx_venta_estado ON venta (estado);
+
+-- ============================================================
+-- ROLES Y PERMISOS
+-- ============================================================
+
+-- Crear los 5 roles
+CREATE ROLE rol_gerente;
+CREATE ROLE rol_supervisor;
+CREATE ROLE rol_vendedor;
+CREATE ROLE rol_cajero;
+CREATE ROLE rol_bodeguero;
+
+-- ── ROL GERENTE ──────────────────────────────────────────
+-- Acceso total a todas las tablas
+GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO rol_gerente;
+GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO rol_gerente;
+
+-- ── ROL SUPERVISOR ───────────────────────────────────────
+-- Puede ver y modificar todo excepto eliminar ventas o empleados
+GRANT SELECT, INSERT, UPDATE ON producto TO rol_supervisor;
+GRANT SELECT, INSERT, UPDATE ON categoria TO rol_supervisor;
+GRANT SELECT, INSERT, UPDATE ON proveedor TO rol_supervisor;
+GRANT SELECT, INSERT, UPDATE ON cliente TO rol_supervisor;
+GRANT SELECT ON venta TO rol_supervisor;
+GRANT SELECT ON detalle_venta TO rol_supervisor;
+GRANT SELECT ON empleado TO rol_supervisor;
+GRANT SELECT ON movimiento_inventario TO rol_supervisor;
+GRANT USAGE ON ALL SEQUENCES IN SCHEMA public TO rol_supervisor;
+
+-- ── ROL VENDEDOR ─────────────────────────────────────────
+-- Puede ver productos y clientes, registrar ventas
+GRANT SELECT ON producto TO rol_vendedor;
+GRANT SELECT ON categoria TO rol_vendedor;
+GRANT SELECT ON proveedor TO rol_vendedor;
+GRANT SELECT, INSERT, UPDATE ON cliente TO rol_vendedor;
+GRANT SELECT, INSERT ON venta TO rol_vendedor;
+GRANT SELECT, INSERT ON detalle_venta TO rol_vendedor;
+GRANT SELECT ON empleado TO rol_vendedor;
+GRANT INSERT ON movimiento_inventario TO rol_vendedor;
+GRANT UPDATE (stock_actual) ON producto TO rol_vendedor;
+GRANT USAGE ON ALL SEQUENCES IN SCHEMA public TO rol_vendedor;
+
+-- ── ROL CAJERO ───────────────────────────────────────────
+-- Solo puede ver ventas y clientes, no modifica inventario
+GRANT SELECT ON venta TO rol_cajero;
+GRANT SELECT ON detalle_venta TO rol_cajero;
+GRANT SELECT ON cliente TO rol_cajero;
+GRANT SELECT ON producto TO rol_cajero;
+GRANT SELECT ON categoria TO rol_cajero;
+GRANT SELECT ON empleado TO rol_cajero;
+
+-- ── ROL BODEGUERO ────────────────────────────────────────
+-- Solo maneja inventario, no ve ventas ni clientes
+GRANT SELECT, INSERT, UPDATE ON producto TO rol_bodeguero;
+GRANT SELECT ON categoria TO rol_bodeguero;
+GRANT SELECT ON proveedor TO rol_bodeguero;
+GRANT SELECT, INSERT ON movimiento_inventario TO rol_bodeguero;
+GRANT UPDATE (stock_actual) ON producto TO rol_bodeguero;
+GRANT USAGE ON ALL SEQUENCES IN SCHEMA public TO rol_bodeguero;
+REVOKE SELECT ON cliente FROM rol_bodeguero;
+REVOKE SELECT ON venta FROM rol_bodeguero;
+REVOKE SELECT ON detalle_venta FROM rol_bodeguero;
+
+-- ── Asignar roles al usuario proy3 ───────────────────────
+GRANT rol_gerente TO proy3;
+GRANT rol_supervisor TO proy3;
+GRANT rol_vendedor TO proy3;
+GRANT rol_cajero TO proy3;
+GRANT rol_bodeguero TO proy3;
