@@ -1,4 +1,15 @@
--- 1. CATEGORIA 
+-- ============================================================
+-- PROYECTO 3 - Datos de prueba
+-- ============================================================
+
+TRUNCATE TABLE movimiento_inventario RESTART IDENTITY CASCADE;
+TRUNCATE TABLE detalle_venta RESTART IDENTITY CASCADE;
+TRUNCATE TABLE venta RESTART IDENTITY CASCADE;
+TRUNCATE TABLE producto RESTART IDENTITY CASCADE;
+TRUNCATE TABLE cliente RESTART IDENTITY CASCADE;
+TRUNCATE TABLE empleado RESTART IDENTITY CASCADE;
+TRUNCATE TABLE proveedor RESTART IDENTITY CASCADE;
+TRUNCATE TABLE categoria RESTART IDENTITY CASCADE;
 
 INSERT INTO categoria (nombre, descripcion) VALUES
 ('Electrónica',         'Dispositivos electrónicos y accesorios'),
@@ -27,98 +38,91 @@ INSERT INTO categoria (nombre, descripcion) VALUES
 ('Viajes',              'Maletas, mochilas y accesorios de viaje'),
 ('Oficina',             'Equipos y muebles de oficina');
 
-
--- 2. PROVEEDOR 
-
 INSERT INTO proveedor (nombre, telefono, email, direccion) VALUES
-('TechDistrib Guatemala',   '2345-6789', 'ventas@techdistrib.gt',     '5a Avenida 12-34, Zona 1, Guatemala'),
-('ElectroImport S.A.',      '2456-7890', 'info@electroimport.gt',     '10 Calle 5-67, Zona 10, Guatemala'),
-('MegaSupply Corp',         '2567-8901', 'pedidos@megasupply.gt',     '15 Avenida 8-90, Zona 13, Guatemala'),
-('Distribuidora Central',   '2678-9012', 'central@distrib.gt',        '6a Calle 3-21, Zona 4, Guatemala'),
-('ImportaGT',               '2789-0123', 'compras@importagt.gt',      '20 Avenida 1-45, Zona 11, Guatemala'),
-('GlobalTech S.A.',         '2890-1234', 'global@globaltech.gt',      '7a Avenida 9-87, Zona 9, Guatemala'),
-('SuministrosNorte',        '2901-2345', 'norte@suministros.gt',      '3a Calle 14-56, Zona 6, Guatemala'),
-('ProvedorMax',             '3012-3456', 'max@provedormax.gt',        '12 Avenida 7-23, Zona 7, Guatemala'),
-('Comercial del Sur',       '3123-4567', 'sur@comercialsur.gt',       '8a Calle 2-34, Zona 12, Guatemala'),
-('DistribGT Express',       '3234-5678', 'express@distribgt.gt',      '4a Avenida 6-78, Zona 5, Guatemala'),
-('Importaciones Pérez',     '3345-6789', 'perez@importaciones.gt',    '9a Calle 11-23, Zona 3, Guatemala'),
-('TechVentas Guatemala',    '3456-7890', 'techventas@tv.gt',          '2a Avenida 4-56, Zona 14, Guatemala'),
-('ElectroNorte S.A.',       '3567-8901', 'norte@electronorte.gt',     '16 Calle 8-90, Zona 15, Guatemala'),
-('Suministros Modernos',    '3678-9012', 'modernos@suministros.gt',   '11 Avenida 3-67, Zona 16, Guatemala'),
-('Distribuidora Oriente',   '3789-0123', 'oriente@distrib.gt',        '5a Calle 9-12, Zona 17, Guatemala'),
-('ImportTech Central',      '3890-1234', 'central@importtech.gt',     '7a Avenida 5-34, Zona 18, Guatemala'),
-('MegaDistrib S.A.',        '3901-2345', 'mega@megadistrib.gt',       '3a Calle 7-89, Zona 19, Guatemala'),
-('Proveedores Unidos',      '4012-3456', 'unidos@proveedores.gt',     '14 Avenida 2-56, Zona 21, Guatemala'),
-('TotalSupply GT',          '4123-4567', 'total@totalsupply.gt',      '6a Calle 4-78, Zona 8, Guatemala'),
-('Comercializadora XYZ',    '4234-5678', 'xyz@comercializadora.gt',   '10 Avenida 6-23, Zona 2, Guatemala'),
-('Distribuciones Rápidas',  '4345-6789', 'rapidas@distribuciones.gt', '8a Calle 1-45, Zona 11, Guatemala'),
-('ElectroSur Guatemala',    '4456-7890', 'sur@electrosur.gt',         '2a Avenida 8-67, Zona 13, Guatemala'),
-('SupplyChain GT',          '4567-8901', 'chain@supplychain.gt',      '12 Calle 5-89, Zona 10, Guatemala'),
-('ImportaFácil S.A.',       '4678-9012', 'facil@importafacil.gt',     '4a Avenida 3-12, Zona 9, Guatemala'),
-('Distribuidora Premium',   '4789-0123', 'premium@distrib.gt',        '9a Calle 7-34, Zona 4, Guatemala');
-
-
--- 3. CLIENTE 
+('TechDistrib Guatemala',   '2345-6789', 'ventas@techdistrib.gt',     '5a Avenida 12-34, Zona 1'),
+('ElectroImport S.A.',      '2456-7890', 'info@electroimport.gt',     '10 Calle 5-67, Zona 10'),
+('MegaSupply Corp',         '2567-8901', 'pedidos@megasupply.gt',     '15 Avenida 8-90, Zona 13'),
+('Distribuidora Central',   '2678-9012', 'central@distrib.gt',        '6a Calle 3-21, Zona 4'),
+('ImportaGT',               '2789-0123', 'compras@importagt.gt',      '20 Avenida 1-45, Zona 11'),
+('GlobalTech S.A.',         '2890-1234', 'global@globaltech.gt',      '7a Avenida 9-87, Zona 9'),
+('SuministrosNorte',        '2901-2345', 'norte@suministros.gt',      '3a Calle 14-56, Zona 6'),
+('ProvedorMax',             '3012-3456', 'max@provedormax.gt',        '12 Avenida 7-23, Zona 7'),
+('Comercial del Sur',       '3123-4567', 'sur@comercialsur.gt',       '8a Calle 2-34, Zona 12'),
+('DistribGT Express',       '3234-5678', 'express@distribgt.gt',      '4a Avenida 6-78, Zona 5'),
+('Importaciones Pérez',     '3345-6789', 'perez@importaciones.gt',    '9a Calle 11-23, Zona 3'),
+('TechVentas Guatemala',    '3456-7890', 'techventas@tv.gt',          '2a Avenida 4-56, Zona 14'),
+('ElectroNorte S.A.',       '3567-8901', 'norte@electronorte.gt',     '16 Calle 8-90, Zona 15'),
+('Suministros Modernos',    '3678-9012', 'modernos@suministros.gt',   '11 Avenida 3-67, Zona 16'),
+('Distribuidora Oriente',   '3789-0123', 'oriente@distrib.gt',        '5a Calle 9-12, Zona 17'),
+('ImportTech Central',      '3890-1234', 'central@importtech.gt',     '7a Avenida 5-34, Zona 18'),
+('MegaDistrib S.A.',        '3901-2345', 'mega@megadistrib.gt',       '3a Calle 7-89, Zona 19'),
+('Proveedores Unidos',      '4012-3456', 'unidos@proveedores.gt',     '14 Avenida 2-56, Zona 21'),
+('TotalSupply GT',          '4123-4567', 'total@totalsupply.gt',      '6a Calle 4-78, Zona 8'),
+('Comercializadora XYZ',    '4234-5678', 'xyz@comercializadora.gt',   '10 Avenida 6-23, Zona 2'),
+('Distribuciones Rápidas',  '4345-6789', 'rapidas@distribuciones.gt', '8a Calle 1-45, Zona 11'),
+('ElectroSur Guatemala',    '4456-7890', 'sur@electrosur.gt',         '2a Avenida 8-67, Zona 13'),
+('SupplyChain GT',          '4567-8901', 'chain@supplychain.gt',      '12 Calle 5-89, Zona 10'),
+('ImportaFácil S.A.',       '4678-9012', 'facil@importafacil.gt',     '4a Avenida 3-12, Zona 9'),
+('Distribuidora Premium',   '4789-0123', 'premium@distrib.gt',        '9a Calle 7-34, Zona 4');
 
 INSERT INTO cliente (nombre, apellido, email, telefono, direccion) VALUES
-('Carlos',    'Ramírez',    'carlos.ramirez@gmail.com',    '5501-1234', 'Colonia El Milagro, Zona 6, Guatemala'),
-('María',     'González',   'maria.gonzalez@hotmail.com',  '5502-2345', '5a Avenida 3-45, Zona 1, Guatemala'),
+('Carlos',    'Ramírez',    'carlos.ramirez@gmail.com',    '5501-1234', 'Colonia El Milagro, Zona 6'),
+('María',     'González',   'maria.gonzalez@hotmail.com',  '5502-2345', '5a Avenida 3-45, Zona 1'),
 ('José',      'Morales',    'jose.morales@gmail.com',      '5503-3456', 'Residencial Vista Hermosa, Zona 15'),
-('Ana',       'López',      'ana.lopez@outlook.com',       '5504-4567', '12 Calle 8-90, Zona 10, Guatemala'),
+('Ana',       'López',      'ana.lopez@outlook.com',       '5504-4567', '12 Calle 8-90, Zona 10'),
 ('Pedro',     'Hernández',  'pedro.hdez@gmail.com',        '5505-5678', 'Colonia Primavera, Villa Nueva'),
-('Lucía',     'Martínez',   'lucia.mtz@gmail.com',         '5506-6789', '3a Avenida 6-23, Zona 4, Guatemala'),
+('Lucía',     'Martínez',   'lucia.mtz@gmail.com',         '5506-6789', '3a Avenida 6-23, Zona 4'),
 ('Diego',     'García',     'diego.garcia@yahoo.com',      '5507-7890', 'Mixco, Guatemala'),
-('Sofía',     'Pérez',      'sofia.perez@gmail.com',       '5508-8901', '7a Calle 2-56, Zona 9, Guatemala'),
-('Fernando',  'Castro',     'fernando.castro@gmail.com',   '5509-9012', 'San Miguel Petapa, Guatemala'),
-('Gabriela',  'Flores',     'gabi.flores@hotmail.com',     '5510-0123', '9a Avenida 4-78, Zona 7, Guatemala'),
-('Roberto',   'Jiménez',    'roberto.jz@gmail.com',        '5511-1234', 'Colonia Lourdes, Zona 3, Guatemala'),
-('Valeria',   'Ruiz',       'valeria.ruiz@gmail.com',      '5512-2345', '14 Calle 1-23, Zona 13, Guatemala'),
+('Sofía',     'Pérez',      'sofia.perez@gmail.com',       '5508-8901', '7a Calle 2-56, Zona 9'),
+('Fernando',  'Castro',     'fernando.castro@gmail.com',   '5509-9012', 'San Miguel Petapa'),
+('Gabriela',  'Flores',     'gabi.flores@hotmail.com',     '5510-0123', '9a Avenida 4-78, Zona 7'),
+('Roberto',   'Jiménez',    'roberto.jz@gmail.com',        '5511-1234', 'Colonia Lourdes, Zona 3'),
+('Valeria',   'Ruiz',       'valeria.ruiz@gmail.com',      '5512-2345', '14 Calle 1-23, Zona 13'),
 ('Miguel',    'Torres',     'miguel.torres@outlook.com',   '5513-3456', 'Amatitlán, Guatemala'),
-('Isabella',  'Díaz',       'isa.diaz@gmail.com',          '5514-4567', '6a Avenida 9-12, Zona 11, Guatemala'),
+('Isabella',  'Díaz',       'isa.diaz@gmail.com',          '5514-4567', '6a Avenida 9-12, Zona 11'),
 ('Andrés',    'Reyes',      'andres.reyes@gmail.com',      '5515-5678', 'Colonia El Tesoro, Zona 12'),
-('Camila',    'Vargas',     'camila.vargas@hotmail.com',   '5516-6789', '2a Calle 5-67, Zona 5, Guatemala'),
-('Luis',      'Mendoza',    'luis.mendoza@gmail.com',      '5517-7890', 'Santa Catarina Pinula, Guatemala'),
-('Paula',     'Aguilar',    'paula.aguilar@gmail.com',     '5518-8901', '11 Avenida 7-34, Zona 2, Guatemala'),
+('Camila',    'Vargas',     'camila.vargas@hotmail.com',   '5516-6789', '2a Calle 5-67, Zona 5'),
+('Luis',      'Mendoza',    'luis.mendoza@gmail.com',      '5517-7890', 'Santa Catarina Pinula'),
+('Paula',     'Aguilar',    'paula.aguilar@gmail.com',     '5518-8901', '11 Avenida 7-34, Zona 2'),
 ('Ricardo',   'Ortiz',      'ricardo.ortiz@yahoo.com',     '5519-9012', 'Colonia Nimajuyú, Zona 21'),
-('Daniela',   'Ramos',      'dani.ramos@gmail.com',        '5520-0123', '8a Calle 3-89, Zona 14, Guatemala'),
+('Daniela',   'Ramos',      'dani.ramos@gmail.com',        '5520-0123', '8a Calle 3-89, Zona 14'),
 ('Alejandro', 'Cruz',       'alex.cruz@gmail.com',         '5521-1234', 'Chinautla, Guatemala'),
-('Natalia',   'Vega',       'natalia.vega@outlook.com',    '5522-2345', '4a Avenida 8-45, Zona 16, Guatemala'),
+('Natalia',   'Vega',       'natalia.vega@outlook.com',    '5522-2345', '4a Avenida 8-45, Zona 16'),
 ('Sebastián', 'Sandoval',   'sebas.sandoval@gmail.com',    '5523-3456', 'Fraijanes, Guatemala'),
-('Mariana',   'Delgado',    'mariana.delgado@gmail.com',   '5524-4567', '10 Calle 6-78, Zona 17, Guatemala'),
+('Mariana',   'Delgado',    'mariana.delgado@gmail.com',   '5524-4567', '10 Calle 6-78, Zona 17'),
 ('Emilio',    'Fuentes',    'emilio.fuentes@hotmail.com',  '5525-5678', 'Villa Canales, Guatemala');
 
-
--- 4. EMPLEADO 
-
-INSERT INTO empleado (nombre, apellido, cargo, email, password_hash) VALUES
-('Laura',     'Gómez',      'Vendedor',      'laura.gomez@tienda.gt',      '$2b$12$abc123hash001'),
-('Marco',     'Salazar',    'Vendedor',      'marco.salazar@tienda.gt',    '$2b$12$abc123hash002'),
-('Elena',     'Pineda',     'Vendedor',      'elena.pineda@tienda.gt',     '$2b$12$abc123hash003'),
-('Hugo',      'Méndez',     'Supervisor',    'hugo.mendez@tienda.gt',      '$2b$12$abc123hash004'),
-('Patricia',  'Lemus',      'Cajero',        'patricia.lemus@tienda.gt',   '$2b$12$abc123hash005'),
-('Sergio',    'Barrios',    'Vendedor',      'sergio.barrios@tienda.gt',   '$2b$12$abc123hash006'),
-('Carmen',    'Estrada',    'Cajero',        'carmen.estrada@tienda.gt',   '$2b$12$abc123hash007'),
-('Javier',    'Molina',     'Bodeguero',     'javier.molina@tienda.gt',    '$2b$12$abc123hash008'),
-('Rosa',      'Fuentes',    'Vendedor',      'rosa.fuentes@tienda.gt',     '$2b$12$abc123hash009'),
-('Arturo',    'Cabrera',    'Gerente',       'arturo.cabrera@tienda.gt',   '$2b$12$abc123hash010'),
-('Silvia',    'Marroquín',  'Vendedor',      'silvia.marroquin@tienda.gt', '$2b$12$abc123hash011'),
-('Óscar',     'Revolorio',  'Cajero',        'oscar.revolorio@tienda.gt',  '$2b$12$abc123hash012'),
-('Claudia',   'Pacay',      'Vendedor',      'claudia.pacay@tienda.gt',    '$2b$12$abc123hash013'),
-('Ernesto',   'Juárez',     'Bodeguero',     'ernesto.juarez@tienda.gt',   '$2b$12$abc123hash014'),
-('Mirna',     'Alvarado',   'Supervisor',    'mirna.alvarado@tienda.gt',   '$2b$12$abc123hash015'),
-('Brayan',    'Tzoc',       'Vendedor',      'brayan.tzoc@tienda.gt',      '$2b$12$abc123hash016'),
-('Wendy',     'Ajú',        'Cajero',        'wendy.aju@tienda.gt',        '$2b$12$abc123hash017'),
-('Kevin',     'Ajanel',     'Vendedor',      'kevin.ajanel@tienda.gt',     '$2b$12$abc123hash018'),
-('Flor',      'Cuc',        'Vendedor',      'flor.cuc@tienda.gt',         '$2b$12$abc123hash019'),
-('Byron',     'Xocoy',      'Bodeguero',     'byron.xocoy@tienda.gt',      '$2b$12$abc123hash020'),
-('Ingrid',    'Toj',        'Cajero',        'ingrid.toj@tienda.gt',       '$2b$12$abc123hash021'),
-('Walter',    'Chox',       'Vendedor',      'walter.chox@tienda.gt',      '$2b$12$abc123hash022'),
-('Deysi',     'Ixcoy',      'Vendedor',      'deysi.ixcoy@tienda.gt',      '$2b$12$abc123hash023'),
-('Mynor',     'Ajú',        'Supervisor',    'mynor.aju@tienda.gt',        '$2b$12$abc123hash024'),
-('Karla',     'Yat',        'Gerente',       'karla.yat@tienda.gt',        '$2b$12$abc123hash025');
-
-
--- 5. PRODUCTO 
+-- ============================================================
+-- EMPLEADOS con rol asignado
+-- password de todos: 123456
+-- hash bcrypt de '123456'
+-- ============================================================
+INSERT INTO empleado (nombre, apellido, cargo, email, password_hash, rol) VALUES
+('Admin',    'Gerente',    'Gerente',    'gerente@tienda.gt',    '$2b$12$EixZaYVK1fsbw1ZfbX3OXePaWxn96p36WQoeG6Lruj3vjPGga31lW', 'gerente'),
+('Ana',      'Supervisora','Supervisor', 'supervisor@tienda.gt', '$2b$12$EixZaYVK1fsbw1ZfbX3OXePaWxn96p36WQoeG6Lruj3vjPGga31lW', 'supervisor'),
+('Carlos',   'Vendedor',   'Vendedor',   'vendedor@tienda.gt',   '$2b$12$EixZaYVK1fsbw1ZfbX3OXePaWxn96p36WQoeG6Lruj3vjPGga31lW', 'vendedor'),
+('María',    'Cajera',     'Cajero',     'cajero@tienda.gt',     '$2b$12$EixZaYVK1fsbw1ZfbX3OXePaWxn96p36WQoeG6Lruj3vjPGga31lW', 'cajero'),
+('Pedro',    'Bodeguero',  'Bodeguero',  'bodeguero@tienda.gt',  '$2b$12$EixZaYVK1fsbw1ZfbX3OXePaWxn96p36WQoeG6Lruj3vjPGga31lW', 'bodeguero'),
+('Laura',    'Gómez',      'Vendedor',   'laura.gomez@tienda.gt',      '$2b$12$EixZaYVK1fsbw1ZfbX3OXePaWxn96p36WQoeG6Lruj3vjPGga31lW', 'vendedor'),
+('Marco',    'Salazar',    'Vendedor',   'marco.salazar@tienda.gt',    '$2b$12$EixZaYVK1fsbw1ZfbX3OXePaWxn96p36WQoeG6Lruj3vjPGga31lW', 'vendedor'),
+('Elena',    'Pineda',     'Vendedor',   'elena.pineda@tienda.gt',     '$2b$12$EixZaYVK1fsbw1ZfbX3OXePaWxn96p36WQoeG6Lruj3vjPGga31lW', 'vendedor'),
+('Hugo',     'Méndez',     'Supervisor', 'hugo.mendez@tienda.gt',      '$2b$12$EixZaYVK1fsbw1ZfbX3OXePaWxn96p36WQoeG6Lruj3vjPGga31lW', 'supervisor'),
+('Patricia', 'Lemus',      'Cajero',     'patricia.lemus@tienda.gt',   '$2b$12$EixZaYVK1fsbw1ZfbX3OXePaWxn96p36WQoeG6Lruj3vjPGga31lW', 'cajero'),
+('Sergio',   'Barrios',    'Vendedor',   'sergio.barrios@tienda.gt',   '$2b$12$EixZaYVK1fsbw1ZfbX3OXePaWxn96p36WQoeG6Lruj3vjPGga31lW', 'vendedor'),
+('Carmen',   'Estrada',    'Cajero',     'carmen.estrada@tienda.gt',   '$2b$12$EixZaYVK1fsbw1ZfbX3OXePaWxn96p36WQoeG6Lruj3vjPGga31lW', 'cajero'),
+('Javier',   'Molina',     'Bodeguero',  'javier.molina@tienda.gt',    '$2b$12$EixZaYVK1fsbw1ZfbX3OXePaWxn96p36WQoeG6Lruj3vjPGga31lW', 'bodeguero'),
+('Rosa',     'Fuentes',    'Vendedor',   'rosa.fuentes@tienda.gt',     '$2b$12$EixZaYVK1fsbw1ZfbX3OXePaWxn96p36WQoeG6Lruj3vjPGga31lW', 'vendedor'),
+('Arturo',   'Cabrera',    'Gerente',    'arturo.cabrera@tienda.gt',   '$2b$12$EixZaYVK1fsbw1ZfbX3OXePaWxn96p36WQoeG6Lruj3vjPGga31lW', 'gerente'),
+('Silvia',   'Marroquín',  'Vendedor',   'silvia.marroquin@tienda.gt', '$2b$12$EixZaYVK1fsbw1ZfbX3OXePaWxn96p36WQoeG6Lruj3vjPGga31lW', 'vendedor'),
+('Óscar',    'Revolorio',  'Cajero',     'oscar.revolorio@tienda.gt',  '$2b$12$EixZaYVK1fsbw1ZfbX3OXePaWxn96p36WQoeG6Lruj3vjPGga31lW', 'cajero'),
+('Claudia',  'Pacay',      'Vendedor',   'claudia.pacay@tienda.gt',    '$2b$12$EixZaYVK1fsbw1ZfbX3OXePaWxn96p36WQoeG6Lruj3vjPGga31lW', 'vendedor'),
+('Ernesto',  'Juárez',     'Bodeguero',  'ernesto.juarez@tienda.gt',   '$2b$12$EixZaYVK1fsbw1ZfbX3OXePaWxn96p36WQoeG6Lruj3vjPGga31lW', 'bodeguero'),
+('Mirna',    'Alvarado',   'Supervisor', 'mirna.alvarado@tienda.gt',   '$2b$12$EixZaYVK1fsbw1ZfbX3OXePaWxn96p36WQoeG6Lruj3vjPGga31lW', 'supervisor'),
+('Brayan',   'Tzoc',       'Vendedor',   'brayan.tzoc@tienda.gt',      '$2b$12$EixZaYVK1fsbw1ZfbX3OXePaWxn96p36WQoeG6Lruj3vjPGga31lW', 'vendedor'),
+('Wendy',    'Ajú',        'Cajero',     'wendy.aju@tienda.gt',        '$2b$12$EixZaYVK1fsbw1ZfbX3OXePaWxn96p36WQoeG6Lruj3vjPGga31lW', 'cajero'),
+('Kevin',    'Ajanel',     'Vendedor',   'kevin.ajanel@tienda.gt',     '$2b$12$EixZaYVK1fsbw1ZfbX3OXePaWxn96p36WQoeG6Lruj3vjPGga31lW', 'vendedor'),
+('Flor',     'Cuc',        'Vendedor',   'flor.cuc@tienda.gt',         '$2b$12$EixZaYVK1fsbw1ZfbX3OXePaWxn96p36WQoeG6Lruj3vjPGga31lW', 'vendedor'),
+('Byron',    'Xocoy',      'Bodeguero',  'byron.xocoy@tienda.gt',      '$2b$12$EixZaYVK1fsbw1ZfbX3OXePaWxn96p36WQoeG6Lruj3vjPGga31lW', 'bodeguero');
 
 INSERT INTO producto (categoria_id, proveedor_id, nombre, descripcion, precio_unitario, stock_actual, stock_minimo) VALUES
 (1,  1,  'Laptop Lenovo IdeaPad',       'Laptop 15.6" Intel Core i5, 8GB RAM, 256GB SSD',    4500.00,  15,  5),
@@ -147,9 +151,6 @@ INSERT INTO producto (categoria_id, proveedor_id, nombre, descripcion, precio_un
 (19,  1, 'Escritorio Home Office',      'Escritorio de madera 120x60cm con cajón',             950.00,   7,  2),
 (20,  2, 'Taladro Bosch GSB 550',       'Taladro percutor 550W con maletín y accesorios',      750.00,  15,  5);
 
-
--- 6. VENTA 
-
 INSERT INTO venta (cliente_id, empleado_id, fecha_venta, total, estado) VALUES
 ( 1,  1, '2026-01-05 09:15:00',  4850.00, 'completada'),
 ( 2,  2, '2026-01-07 10:30:00',  1800.00, 'completada'),
@@ -176,9 +177,6 @@ INSERT INTO venta (cliente_id, empleado_id, fecha_venta, total, estado) VALUES
 (23,  3, '2026-03-05 11:45:00',   163.00, 'completada'),
 (24,  4, '2026-03-08 14:00:00',  1650.00, 'completada'),
 (25,  5, '2026-03-10 09:30:00',   335.00, 'completada');
-
-
--- 7. DETALLE_VENTA 
 
 INSERT INTO detalle_venta (venta_id, producto_id, cantidad, precio_unitario, subtotal) VALUES
 ( 1,  1, 1, 4500.00, 4500.00),
@@ -207,7 +205,6 @@ INSERT INTO detalle_venta (venta_id, producto_id, cantidad, precio_unitario, sub
 (19, 25, 1,  750.00,  750.00),
 (20,  5, 1, 2800.00, 2800.00);
 
--- 8. MOVIMIENTO_INVENTARIO 
 INSERT INTO movimiento_inventario (producto_id, tipo, cantidad, fecha, motivo) VALUES
 ( 1, 'ENTRADA',  20, '2026-01-01 08:00:00', 'Compra inicial de inventario'),
 ( 2, 'ENTRADA',  25, '2026-01-01 08:00:00', 'Compra inicial de inventario'),
@@ -232,5 +229,5 @@ INSERT INTO movimiento_inventario (producto_id, tipo, cantidad, fecha, motivo) V
 (11, 'SALIDA',   -1, '2026-02-18 09:00:00', 'Venta #17'),
 (12, 'SALIDA',   -1, '2026-02-20 10:45:00', 'Venta #18'),
 (25, 'SALIDA',   -1, '2026-02-22 11:30:00', 'Venta #19'),
-( 3, 'AJUSTE',    5, '2026-03-01 08:00:00', 'Ajuste por conteo físico de inventario'),
+( 3, 'AJUSTE',    5, '2026-03-01 08:00:00', 'Ajuste por conteo físico'),
 (15, 'ENTRADA',  60, '2026-03-05 08:00:00', 'Reabastecimiento pelotas Adidas');
